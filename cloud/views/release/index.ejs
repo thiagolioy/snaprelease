@@ -1,0 +1,13 @@
+<% var title = "Releases" %>
+<% include ../_header %>
+
+
+
+<select>
+  <% releases.forEach(function(release) { %>
+    <option value="<%= release.get('id') %>"><%= release.get('version') %></option>
+  <% }) %>
+</select>
+
+
+<% include ../_footer %>
