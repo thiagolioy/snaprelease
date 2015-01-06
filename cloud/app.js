@@ -16,7 +16,13 @@ app.use(express.bodyParser());    // Middleware for reading request body
 var Release = Parse.Object.extend('Release');
 
 app.get('/',function(req, res) {
-  res.render('landing/index', {
+  res.render('release/index', {
+    name: "snaprelease"
+  });
+});
+
+app.get('/download',function(req, res) {
+  res.render('release/download', {
     name: "snaprelease"
   });
 });
@@ -39,21 +45,6 @@ app.get('/plist',function(req, res) {
   });
 });
 
-
-app.get('/releases',function(req, res) {
-  var query = new Parse.Query(Release);
-  query.descending('createdAt');
-  query.limit = 10;
-
-  query.find().then(function(releases) {
-    res.render('release/index', {
-      releases: releases
-    });
-  },
-  function() {
-    res.send(500, 'Failed loading places');
-  });
-});
 
 
 // Attach the Express app to Cloud Code.

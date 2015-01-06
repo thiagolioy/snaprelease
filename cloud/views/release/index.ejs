@@ -1,13 +1,6 @@
-<% var title = "Releases" %>
+<% var title = "Upload Release" %>
 <% include ../_header %>
 
-
-
-<select>
-  <% releases.forEach(function(release) { %>
-    <option value="<%= release.get('id') %>"><%= release.get('version') %></option>
-  <% }) %>
-</select>
-
+<% include _form %>
 
 <% include ../_footer %>

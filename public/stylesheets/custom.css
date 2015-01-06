@@ -2,3 +2,8 @@ body{
   background-color:#005A7A;
 
 }
+
+#logo-container{
+    padding-top:200px;
+    padding-bottom: 50px;
+}
