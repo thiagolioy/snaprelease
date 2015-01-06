@@ -19,7 +19,22 @@ var SnapR = SnapR || (function() {
     $('#snaprelease-button').click(function() {
       var serverUrl = 'https://api.parse.com/1/files/' + file.name;
 
+
       $.ajax({
+        xhr: function() {
+          var xhr = new window.XMLHttpRequest();
+          xhr.upload.addEventListener("progress", function(evt) {
+            if (evt.lengthComputable) {
+              var percentComplete = Math.round((evt.loaded / evt.total)* 100);
+              var status = "" + percentComplete + "%";
+              $("#progressbar-meter").animate({width:status});
+              //Do something with upload progress here
+            }
+          }, false);
+
+
+          return xhr;
+        },
         type: "POST",
         beforeSend: function(request) {
           request.setRequestHeader("X-Parse-Application-Id", 'jol9azVpjaanp6btbn3fQVAoQVsE4ZFwUE29EkQh');
@@ -38,6 +53,7 @@ var SnapR = SnapR || (function() {
           alert(obj.error);
         }
       });
+
     });
   };
 
