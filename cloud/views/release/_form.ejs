@@ -4,10 +4,11 @@
     <div class="small-12 large-6 medium-8 columns medium-centered large-centered">
       <div class="row collapse">
         <div class="small-10 columns">
-          <input type="text" disabled placeholder="Upload file ipa|apk" >
+          <input type="text" id="filename" disabled placeholder="Upload file ipa|apk" >
+          <input type="file" id="select-file" class="hide" >
         </div>
         <div class="small-2 columns">
-          <a href="#" class="button postfix">Upload</a>
+          <a href="#" class="button postfix" id="upload-button">Upload</a>
         </div>
       </div>
     </div>
@@ -21,7 +22,7 @@
 
   <div class="row">
     <div class="small-12 large-6 medium-8 columns medium-centered large-centered small-centered">
-        <a href="#" class="button columns disabled">SnapRelease</a>
+        <a href="#" id="snaprelease-button" class="button columns">SnapRelease</a>
     </div>
   </div>
 
