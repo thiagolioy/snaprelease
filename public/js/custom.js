@@ -40,13 +40,14 @@ var SnapR = SnapR || (function() {
           request.setRequestHeader("X-Parse-Application-Id", 'jol9azVpjaanp6btbn3fQVAoQVsE4ZFwUE29EkQh');
           request.setRequestHeader("X-Parse-REST-API-Key", '1l6FZMNAlO2ubHK62Z2p2dbXZso0I7Q4JxreJSBG');
           request.setRequestHeader("Content-Type", file.type);
+          $("#progressbar-container").fadeIn();
         },
         url: serverUrl,
         data: file,
         processData: false,
         contentType: false,
         success: function(data) {
-          alert("File available at: " + data.url);
+          $("#progressbar-container").fadeOut();
         },
         error: function(data) {
           var obj = jQuery.parseJSON(data);
