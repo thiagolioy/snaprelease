@@ -12,7 +12,23 @@ var SnapR = SnapR || (function() {
       var files = f.target.files || f.dataTransfer.files;
       file = files[0];
       $("#filename").val(file.name);
+
+      var contains = file.name.indexOf(".ipa") > -1;
+      toggleBounceAnimation("#bundle-id-container",contains);
     });
+  };
+
+  var toggleBounceAnimation = function(elId,turnOn){
+
+    if(turnOn){
+      $(elId).removeClass("hide");
+      $(elId).removeClass('animated bounceOutUp');
+      $(elId).addClass('animated bounceInDown');
+    }else{
+      $(elId).removeClass('animated bounceInDown');
+      $(elId).addClass('animated bounceOutUp');
+      $(elId).addClass('hide');
+    }
   };
 
   var updateProgressBar = function(evt){
