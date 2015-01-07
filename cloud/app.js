@@ -34,6 +34,9 @@ app.get('/download/:id',function(req, res) {
 
   var query = new Parse.Query(Release);
   query.get(req.params.id).then(function(release) {
+      var filePath = release.get("upload_path");
+
+      var isIos = filePath.indexOf(".ipa") > -1;
 
       var downloadUrl = "http://snaprelease.parseapp.com/download/" + release.id;
       var bitlyApiKey = "26315f2dfa5c559d170c6b278e3a4087d189b687";
@@ -48,8 +51,8 @@ app.get('/download/:id',function(req, res) {
         success: function(httpResponse) {
           var bitlyUrl = httpResponse.data.data.url;
           res.render('release/download', {
-            downloadUrl: bitlyUrl,
-            itunesUrl: itunesUrl
+            bitlyUrl: bitlyUrl,
+            downloadUrl: (isIos ? itunesUrl : filePath)
           });
         },
         error: function(httpResponse) {
