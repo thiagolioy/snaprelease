@@ -3,25 +3,19 @@
   <div class="row">
     <div class="small-12 large-6 medium-8 columns medium-centered large-centered">
       <div class="row collapse">
-        <div class="small-10 columns">
-          <input type="text" disabled value="<%= release.get('bundle_id') %>" >
+        <div class="small-8 columns">
+          <input type="text" readonly value="<%= downloadUrl %>" >
         </div>
-        <div class="small-2 columns">
+        <div class="small-4 columns">
           <a href="#" class="button postfix">Copy</a>
         </div>
       </div>
     </div>
   </div>
 
-   <div class="row">
-    <div class="small-12 large-6 medium-8 columns medium-centered large-centered">
-        <input type="text" disabled value="<%= release.get('bundle_id') %>" />
-    </div>
-  </div>
-
   <div class="row">
     <div class="small-12 large-6 medium-8 columns medium-centered large-centered small-centered">
-        <a href="itms-services://?action=download-manifest&url=https://snaprelease.parseapp.com/plist/<%= release.id %>" class="button columns">Download</a>
+        <a href="<%= itunesUrl %>" class="button columns">Download</a>
     </div>
   </div>
 
