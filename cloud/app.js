@@ -27,11 +27,6 @@ app.get('/',function(req, res) {
 
 app.get('/download/:id',function(req, res) {
 
-
-
-
-
-
   var query = new Parse.Query(Release);
   query.get(req.params.id).then(function(release) {
       var filePath = release.get("upload_path");

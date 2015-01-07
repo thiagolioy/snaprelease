@@ -54,14 +54,14 @@ var SnapR = SnapR || (function() {
         request.setRequestHeader("X-Parse-Application-Id", 'jol9azVpjaanp6btbn3fQVAoQVsE4ZFwUE29EkQh');
         request.setRequestHeader("X-Parse-REST-API-Key", '1l6FZMNAlO2ubHK62Z2p2dbXZso0I7Q4JxreJSBG');
         request.setRequestHeader("Content-Type", file.type);
-        $("#progressbar-container").fadeIn();
+        toggleBounceAnimation("#progressbar-container",true);
       },
       url: serverUrl,
       data: file,
       processData: false,
       contentType: false,
       success: function(data) {
-        $("#progressbar-container").fadeOut();
+        toggleBounceAnimation("#progressbar-container",false);
         postRelease(data.url);
       },
       error: function(data) {
