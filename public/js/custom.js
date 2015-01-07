@@ -14,19 +14,21 @@ var SnapR = SnapR || (function() {
       $("#filename").val(file.name);
 
       var contains = file.name.indexOf(".ipa") > -1;
-      toggleBounceAnimation("#bundle-id-container",contains);
+      toggleAnimation("#bundle-id-container",contains);
     });
   };
 
-  var toggleBounceAnimation = function(elId,turnOn){
+  var toggleAnimation = function(elId,turnOn,animIn,animOut){
+    var aIn = animIn || "bounceInDown";
+    var aOut = animOut || "bounceOutUp";
 
     if(turnOn){
       $(elId).removeClass("hide");
-      $(elId).removeClass('animated bounceOutUp');
-      $(elId).addClass('animated bounceInDown');
+      $(elId).removeClass('animated '+aOut);
+      $(elId).addClass('animated '+aIn);
     }else{
-      $(elId).removeClass('animated bounceInDown');
-      $(elId).addClass('animated bounceOutUp');
+      $(elId).removeClass('animated '+aIn);
+      $(elId).addClass('animated '+aOut);
       $(elId).addClass('hide');
     }
   };
@@ -54,14 +56,14 @@ var SnapR = SnapR || (function() {
         request.setRequestHeader("X-Parse-Application-Id", 'jol9azVpjaanp6btbn3fQVAoQVsE4ZFwUE29EkQh');
         request.setRequestHeader("X-Parse-REST-API-Key", '1l6FZMNAlO2ubHK62Z2p2dbXZso0I7Q4JxreJSBG');
         request.setRequestHeader("Content-Type", file.type);
-        toggleBounceAnimation("#progressbar-container",true);
+        toggleAnimation("#progressbar-container",true,"zoomIn","zoomOut");
       },
       url: serverUrl,
       data: file,
       processData: false,
       contentType: false,
       success: function(data) {
-        toggleBounceAnimation("#progressbar-container",false);
+        toggleAnimation("#progressbar-container",false,"zoomIn","zoomOut");
         postRelease(data.url);
       },
       error: function(data) {
