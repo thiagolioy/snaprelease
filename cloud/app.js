@@ -4,6 +4,10 @@ var express = require('express');
 var app = express();
 
 
+Parse.Cloud.define("Logger", function(request, response) {
+  console.log(request.params);
+  response.success();
+});
 
 // Global app configuration section
 app.set('views', 'cloud/views');  // Specify the folder to find templates
@@ -21,27 +25,32 @@ app.get('/',function(req, res) {
   });
 });
 
-app.get('/download',function(req, res) {
-  res.render('release/download', {
-    name: "snaprelease"
-  });
-});
-
-app.get('/plist',function(req, res) {
+app.get('/download/:id',function(req, res) {
   var query = new Parse.Query(Release);
-  query.descending('createdAt');
-  query.limit = 10;
-
-  query.find().then(function(releases) {
-    res.render('release/plist', {
-      bundle_id: "com.teste",
-      bundle_version: "0.0.1",
-      release_title: "title",
-      release_url: "http://www.google.com"
-    });
+  query.get(req.params.id).then(function(release) {
+      res.render('release/download', {
+        release: release
+      });
   },
   function() {
-    res.send(500, 'Failed loading places');
+    res.send(500, 'Failed finding the specified post to show');
+  });
+
+});
+
+app.get('/plist/:id',function(req, res) {
+  var query = new Parse.Query(Release);
+  query.get(req.params.id).then(function(release) {
+      var filePathSsl = release.get("upload_path").replace("http://", "https://s3.amazonaws.com/");
+      res.render('release/plist', {
+        bundle_id: release.get("bundle_id"),
+        bundle_version: "0.1",
+        release_url: filePathSsl,
+        release_title: "SnapRelease"
+      });
+  },
+  function() {
+    res.send(500, 'Failed finding the specified post to show');
   });
 });
 
