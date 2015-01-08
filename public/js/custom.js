@@ -6,6 +6,11 @@ var SnapR = SnapR || (function() {
       $('#select-file').click();
     });
   };
+  var bindCloseAlertEvent = function () {
+    $('#close-alert-action').click(function(){
+      toggleAnimation("#alert-notification-container",false,"zoomIn","zoomOut");
+    });
+  };
 
   var bindSelectFileEvent = function () {
     $('#select-file').bind("change", function(f) {
@@ -16,14 +21,18 @@ var SnapR = SnapR || (function() {
         var contains = file.name.indexOf(".ipa") > -1;
         toggleAnimation("#bundle-id-container",contains);
       }else{
-        //show Alert Notification invalid upload
+        showAlertNotification();
       }
 
     });
   };
 
+  var showAlertNotification = function(){
+    toggleAnimation("#alert-notification-container",true,"zoomIn","zoomOut");
+  };
+
   var isValidUploadFile = function(name){
-    return (name.indexOf(".ipa") == -1 || name.indexOf(".apk") == -1) ? false : true;
+    return (name.indexOf(".ipa") == -1 && name.indexOf(".apk") == -1) ? false : true;
   };
 
   var toggleAnimation = function(elId,turnOn,animIn,animOut){
@@ -36,8 +45,10 @@ var SnapR = SnapR || (function() {
       $(elId).addClass('animated '+aIn);
     }else{
       $(elId).removeClass('animated '+aIn);
-      $(elId).addClass('animated '+aOut);
-      $(elId).addClass('hide');
+      $(elId).addClass('animated '+aOut).delay(400).queue(function(next){
+        $(this).addClass("hide");
+        next();
+      });
     }
   };
 
@@ -121,6 +132,7 @@ var SnapR = SnapR || (function() {
     bindUploadButtonEvent();
     bindSelectFileEvent();
     bindSnapReleaseEvent();
+    bindCloseAlertEvent();
   };
 
   return {
