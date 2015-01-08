@@ -11,11 +11,19 @@ var SnapR = SnapR || (function() {
     $('#select-file').bind("change", function(f) {
       var files = f.target.files || f.dataTransfer.files;
       file = files[0];
-      $("#filename").val(file.name);
+      if(isValidUploadFile(file.name)){
+        $("#filename").val(file.name);
+        var contains = file.name.indexOf(".ipa") > -1;
+        toggleAnimation("#bundle-id-container",contains);
+      }else{
+        //show Alert Notification invalid upload
+      }
 
-      var contains = file.name.indexOf(".ipa") > -1;
-      toggleAnimation("#bundle-id-container",contains);
     });
+  };
+
+  var isValidUploadFile = function(name){
+    return (name.indexOf(".ipa") == -1 || name.indexOf(".apk") == -1) ? false : true;
   };
 
   var toggleAnimation = function(elId,turnOn,animIn,animOut){
