@@ -8,6 +8,10 @@ body{
     padding-bottom: 50px;
 }
 
+#footer-note{
+  color: white;
+}
+
 
 @media only screen and (max-width: 40em) {
   #logo-container{
