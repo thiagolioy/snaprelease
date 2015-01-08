@@ -7,8 +7,9 @@ var SnapR = SnapR || (function() {
     });
   };
   var bindCloseAlertEvent = function () {
-    $('#close-alert-action').click(function(){
+    $('.close-alert-action').click(function(){
       toggleAnimation("#alert-notification-container",false,"zoomIn","zoomOut");
+      toggleAnimation("#alert-max-size-notification-container",false,"zoomIn","zoomOut");
     });
   };
 
@@ -16,6 +17,11 @@ var SnapR = SnapR || (function() {
     $('#select-file').bind("change", function(f) {
       var files = f.target.files || f.dataTransfer.files;
       file = files[0];
+      if(isTooBig(file.size)){
+        showMaxSizeNotification();
+        return;
+      }
+
       if(isValidUploadFile(file.name)){
         $("#filename").val(file.name);
         var contains = file.name.indexOf(".ipa") > -1;
@@ -27,8 +33,17 @@ var SnapR = SnapR || (function() {
     });
   };
 
+  var showMaxSizeNotification = function(){
+    toggleAnimation("#alert-max-size-notification-container",true,"zoomIn","zoomOut");
+  };
+
   var showAlertNotification = function(){
     toggleAnimation("#alert-notification-container",true,"zoomIn","zoomOut");
+  };
+
+  var isTooBig = function(fileSize){
+    var max = 10485760;
+    return fileSize > max ? true : false;
   };
 
   var isValidUploadFile = function(name){
