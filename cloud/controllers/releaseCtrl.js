@@ -15,7 +15,7 @@ exports.download = function(req, res) {
     var isIos = filePath.indexOf(".ipa") > -1;
 
     var downloadUrl = "http://snaprelease.parseapp.com/download/" + release.id;
-    var bitlyApiKey = "26315f2dfa5c559d170c6b278e3a4087d189b687";
+    var bitlyApiKey = "R_d1b1cc2d64b42b7158551f570ab1e754";
     var itunesUrl = "itms-services://?action=download-manifest&url=https://snaprelease.parseapp.com/plist/"+release.id;
 
     Parse.Cloud.httpRequest({
