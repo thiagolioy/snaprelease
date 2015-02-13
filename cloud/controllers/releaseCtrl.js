@@ -1,6 +1,6 @@
 
 exports.index = function(req, res) {
-  res.render('release/index', {
+  res.render('dist/release/index', {
     name: "snaprelease"
   });
 };
@@ -26,7 +26,7 @@ exports.download = function(req, res) {
       },
       success: function(httpResponse) {
         var bitlyUrl = httpResponse.data.data.url;
-        res.render('release/download', {
+        res.render('dist/release/download', {
           bitlyUrl: bitlyUrl,
           downloadUrl: (isIos ? itunesUrl : filePath)
         });
