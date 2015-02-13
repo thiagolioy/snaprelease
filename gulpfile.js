@@ -43,7 +43,7 @@ gulp.task('alljs', function() {
              gulp.src(parseSdk),
              gulp.src(customJs))
              .pipe(concat("all.min.js"))
-            // .pipe(uglify())
+            .pipe(uglify())
              .pipe(gulp.dest("./public/js/dist/"));
 });
 
@@ -57,9 +57,6 @@ gulp.task('jsmin', function() {
       .pipe(source('combined.min.js'))
       .pipe(buffer())
       .pipe(sourcemaps.init({loadMaps: true}))
-        // Add transformation tasks to the pipeline here.
-        // .pipe(uglify())
-      // .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest('./public/js/dist/'));
   };
 
